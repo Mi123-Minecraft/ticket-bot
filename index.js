@@ -1,4 +1,5 @@
 require('dotenv').config();
+const keep_alive = require('./keep_alive.js');
 const fs = require('fs');
 const {
   Client,
@@ -30,8 +31,8 @@ const rest = new REST({
 }).setToken(t);
 
 rest.put(Routes.applicationCommands(clientId), {
-    body: slashcommands
-  })
+  body: slashcommands
+})
   .then(() => console.log('Successfully registered application commands.'))
   .catch(console.error);
 
@@ -55,7 +56,7 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
-    client.on(event.name, (...args) => event.execute(...args, client));
+  client.on(event.name, (...args) => event.execute(...args, client));
 };
 
 client.on('interactionCreate', async interaction => {
