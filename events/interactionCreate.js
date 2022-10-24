@@ -7,7 +7,7 @@ module.exports = {
     if (interaction.customId == "open-ticket") {
       if (client.guilds.cache.get(interaction.guildId).channels.cache.find(c => c.topic == interaction.user.id)) {
         return interaction.reply({
-          content: 'Vous avez déjà ouvert un ticket !',
+          content: 'you have already a Ticket created!',
           ephemeral: true
         });
       };
@@ -31,22 +31,22 @@ module.exports = {
         type: 'text',
       }).then(async c => {
         interaction.reply({
-          content: `Un ticket a été créé ! <#${c.id}>`,
+          content: `Ticket has ben created! <#${c.id}>`,
           ephemeral: true
         });
 
         const embed = new client.discord.MessageEmbed()
           .setColor('ff9600')
-          .setAuthor('Appels', ' ')
-          .setDescription('Choisissez un département a appelé.')
-          .setFooter('Direction Générale des Renseignements Généraux', ' ')
+          .setAuthor('Reason', ' ')
+          .setDescription('choose a reason why you open a ticket')
+          .setFooter('Ticket System', ' ')
           .setTimestamp();
 
         const row = new client.discord.MessageActionRow()
           .addComponents(
             new client.discord.MessageSelectMenu()
             .setCustomId('category')
-            .setPlaceholder('Choisir le département.')
+            .setPlaceholder('choose a reason why you open a ticket')
             .addOptions([{
                 label: 'Apply',
                 value: 'Apply',
@@ -92,16 +92,16 @@ module.exports = {
               msg.delete().then(async () => {
                 const embed = new client.discord.MessageEmbed()
                   .setColor('ff9600')
-                  .setAuthor('Appel', ' ')
-                  .setDescription(`<@!${interaction.user.id}> a créé l\'**appel** avec le motif : ${i.values[0]}`)
-                  .setFooter('Système d\'appels', ' ')
+                  .setAuthor('Ticket', ' ')
+                  .setDescription(`<@!${interaction.user.id}> has create a **Ticket** with the reason・ ${i.values[0]}`)
+                  .setFooter('Ticket System', ' ')
                   .setTimestamp();
 
                 const row = new client.discord.MessageActionRow()
                   .addComponents(
                     new client.discord.MessageButton()
                     .setCustomId('close-ticket')
-                    .setLabel('Mettre fin à l\'appel')
+                    .setLabel('close ticket')
                     .setEmoji('899745362137477181')
                     .setStyle('DANGER'),
                   );
@@ -147,7 +147,7 @@ module.exports = {
 
         collector.on('end', collected => {
           if (collected.size < 1) {
-            c.send(`Il n'y a pas eu de départements, l'appel va être fermé.`).then(() => {
+            c.send(`There was no reason, the ticket will be closed.`).then(() => {
               setTimeout(() => {
                 if (c.deletable) {
                   c.delete();
@@ -167,16 +167,16 @@ module.exports = {
         .addComponents(
           new client.discord.MessageButton()
           .setCustomId('confirm-close')
-          .setLabel('Mettre fin à l\'appel')
+          .setLabel('Ticket close')
           .setStyle('DANGER'),
           new client.discord.MessageButton()
           .setCustomId('no')
-          .setLabel('Annuler la fermeture')
+          .setLabel('close cancel')
           .setStyle('SECONDARY'),
         );
 
       const verif = await interaction.reply({
-        content: 'Êtes-vous sûr que vous souhaitez mettre fin à l\'appel ?',
+        content: 'Are you sure you want to close the ticket?',
         components: [row]
       });
 
@@ -188,7 +188,7 @@ module.exports = {
       collector.on('collect', i => {
         if (i.customId == 'confirm-close') {
           interaction.editReply({
-            content: `L'appel a été verouillé par <@!${interaction.user.id}>`,
+            content: `The ticket has been closed by <@!${interaction.user.id}>`,
             components: []
           });
 
@@ -212,16 +212,16 @@ module.exports = {
             .then(async () => {
               const embed = new client.discord.MessageEmbed()
                 .setColor('ff9600')
-                .setAuthor('Appels', ' ')
-                .setDescription('```Sauvegarde```')
-                .setFooter('Système d\'appels', ' ')
+                .setAuthor('Ticket', ' ')
+                .setDescription('```Ticket saving```')
+                .setFooter('Ticket System', ' ')
                 .setTimestamp();
 
               const row = new client.discord.MessageActionRow()
                 .addComponents(
                   new client.discord.MessageButton()
                   .setCustomId('delete-ticket')
-                  .setLabel('Supprimer l\'appel')
+                  .setLabel('Ticket delete')
                   .setEmoji('🗑️')
                   .setStyle('DANGER'),
                 );
@@ -236,7 +236,7 @@ module.exports = {
         };
         if (i.customId == 'no') {
           interaction.editReply({
-            content: 'Annulation de la fermeture !',
+            content: 'Close ticket cancelled!',
             components: []
           });
           collector.stop();
@@ -246,7 +246,7 @@ module.exports = {
       collector.on('end', (i) => {
         if (i.size < 1) {
           interaction.editReply({
-            content: 'Annulation de la fermeture !',
+            content: 'Ticket closure cancelled!',
             components: []
           });
         };
@@ -258,14 +258,14 @@ module.exports = {
       const chan = guild.channels.cache.get(interaction.channelId);
 
       interaction.reply({
-        content: 'Sauvegarde en cours...'
+        content: 'ticket saving...'
       });
 
       chan.messages.fetch().then(async (messages) => {
         let a = messages.filter(m => m.author.bot !== true).map(m =>
           `${new Date(m.createdTimestamp).toLocaleString('de-DE')} - ${m.author.username}#${m.author.discriminator}: ${m.attachments.size > 0 ? m.attachments.first().proxyURL : m.content}`
         ).reverse().join('\n');
-        if (a.length < 1) a = "Rien n'a été noté dans le ticket."
+        if (a.length < 1) a = "It was not written in the ticket"
         hastebin.createPaste(a, {
             contentType: 'text/plain',
             server: 'https://hastebin.com'
@@ -273,13 +273,13 @@ module.exports = {
           .then(function (urlToPaste) {
             const embed = new client.discord.MessageEmbed()
               .setAuthor('Logs Ticket', ' ')
-              .setDescription(`📰 Logs d\'appels \`${chan.id}\` créé par <@!${chan.topic}> et supprimé par <@!${interaction.user.id}>\n\nLogs: [**Cliquer ici pour vous les logs.**](${urlToPaste})`)
+              .setDescription(`📰 Ticket-Logs \`${chan.id}\` created by <@!${chan.topic}> and deleted by <@!${interaction.user.id}>\n\nLogs: [**Click here to see the logs**](${urlToPaste})`)
               .setColor('2f3136')
               .setTimestamp();
 
             const embed2 = new client.discord.MessageEmbed()
-              .setAuthor('Logs d\'appels', ' ')
-              .setDescription(`📰 Logs de l'appel \`${chan.id}\`: [**Cliquer ici pour voir les logs.**](${urlToPaste})`)
+              .setAuthor('Logs Ticket', ' ')
+              .setDescription(`📰 Logs of your ticket \`${chan.id}\`: [**Click here to see the logsn**](${urlToPaste})`)
               .setColor('2f3136')
               .setTimestamp();
 
@@ -289,11 +289,11 @@ module.exports = {
             client.users.cache.get(chan.topic).send({
               embeds: [embed2]
             }).catch(() => {console.log('I cant send it DM')});
-            chan.send('Salon supprimé.');
+            chan.send('Delete channel.');
 
             setTimeout(() => {
               chan.delete();
-            }, 2000);
+            }, 5000);
           });
       });
     };
