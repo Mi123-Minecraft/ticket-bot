@@ -77,4 +77,15 @@ client.on('interactionCreate', async interaction => {
   };
 });
 
+client.on("ready", () =>{
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setPresence({
+      status: "dnd",
+      game: {
+          name: "la maintenance.",
+          type: "WATCHING"
+      }
+  });
+});
+
 client.login(process.env['TOKEN']);
