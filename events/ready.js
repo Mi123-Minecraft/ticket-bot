@@ -19,6 +19,11 @@ module.exports = {
           .setEmoji('🎫')
           .setStyle('PRIMARY'),
         );
+        collector.on('collect', async i => {
+          if (i.customId === 'id_1') {
+              row.components[0].setDisabled(true)
+          }
+      })
 
       oniChan.send({
         embeds: [embed],
