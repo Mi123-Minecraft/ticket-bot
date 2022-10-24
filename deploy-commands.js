@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const {
   REST
@@ -8,8 +9,7 @@ const {
 const {
   clientId
 } = require('./config.json');
-const t = require('./token.json');
-
+const t = process.env['TOKEN'];
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -20,7 +20,7 @@ for (const file of commandFiles) {
 
 const rest = new REST({
   version: '9'
-}).setToken(t.token);
+}).setToken(t);
 
 rest.put(Routes.applicationCommands(clientId), {
     body: commands

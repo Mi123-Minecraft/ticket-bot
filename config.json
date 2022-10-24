@@ -1,19 +1,19 @@
 {
-  "clientId": "924674961958912010",
+  "clientId": "882082294502920213",
 
 
-  "parentOpened": "980100411870576640",
-  "parentApply": "980100411870576640",
-  "parentSupport": "980100411870576640",
-  "parentComplaint": "980100411870576640",
-  "parentPartnership": "980100411870576640",
-  "parentHosting": "980100411870576640",
+  "parentOpened": "927581183334830090",
+  "parentApply": "927581183334830090",
+  "parentSupport": "927581183334830090",
+  "parentComplaint": "927581183334830090",
+  "parentPartnership": "927581183334830090",
+  "parentHosting": "927581183334830090",
 
-  "roleSupport": "979441727968514098",
+  "roleSupport": "830017494911680543",
 
   
-  "logsTicket": "980100257767645194",
-  "ticketChannel": "979441925218242600",
+  "logsTicket": "1034217708956430377",
+  "ticketChannel": "1034217657337135184",
 
   "footerText": "contributiors <@&825013296239345664> & <@&629031362351071252> "
 }

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const {
   Client,
@@ -14,7 +15,7 @@ const {
 const {
   clientId
 } = require('./config.json');
-const t = require('./token.json');
+const t = process.env['TOKEN'];
 
 const slashcommands = [];
 const slashcommandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -26,7 +27,7 @@ for (const file of slashcommandFiles) {
 
 const rest = new REST({
   version: '9'
-}).setToken(t.token);
+}).setToken(t);
 
 rest.put(Routes.applicationCommands(clientId), {
     body: slashcommands
@@ -75,4 +76,4 @@ client.on('interactionCreate', async interaction => {
   };
 });
 
-client.login(require('./token.json').token);
+client.login(process.env['TOKEN']);
