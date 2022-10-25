@@ -147,7 +147,7 @@ module.exports = {
 
         collector.on('end', collected => {
           if (collected.size < 1) {
-            c.send(`Aucun département n'a été renseigné. Fin de l'appel..`).then(() => {
+            c.send(`Aucun département n'a été renseigné. Fin de l'appel...`).then(() => {
               setTimeout(() => {
                 if (c.deletable) {
                   c.delete();
@@ -167,11 +167,11 @@ module.exports = {
         .addComponents(
           new client.discord.MessageButton()
           .setCustomId('confirm-close')
-          .setLabel('Ticket close')
+          .setLabel('Mettre fin à l\'appel')
           .setStyle('DANGER'),
           new client.discord.MessageButton()
           .setCustomId('no')
-          .setLabel('close cancel')
+          .setLabel('Annuler')
           .setStyle('SECONDARY'),
         );
 
