@@ -101,7 +101,7 @@ module.exports = {
                   .addComponents(
                     new client.discord.MessageButton()
                     .setCustomId('close-ticket')
-                    .setLabel('close ticket')
+                    .setLabel("Mettre fin à l'appel")
                     .setEmoji('899745362137477181')
                     .setStyle('DANGER'),
                   );
