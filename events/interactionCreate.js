@@ -272,24 +272,15 @@ module.exports = {
           }, {})
           .then(function (urlToPaste) {
             const embed = new client.discord.MessageEmbed()
-              .setAuthor('Logs Ticket', ' ')
-              .setDescription(`📰 Ticket-Logs \`${chan.id}\` created by <@!${chan.topic}> and deleted by <@!${interaction.user.id}>\n\nLogs: [**Click here to see the logs**](${urlToPaste})`)
-              .setColor('2f3136')
-              .setTimestamp();
-
-            const embed2 = new client.discord.MessageEmbed()
-              .setAuthor('Logs Ticket', ' ')
-              .setDescription(`📰 Logs of your ticket \`${chan.id}\`: [**Click here to see the logsn**](${urlToPaste})`)
+              .setAuthor('Logs Appels', ' ')
+              .setDescription(`📰 Sauvegarde \`${chan.id}\` créé par <@!${chan.topic}> et supprimé par <@!${interaction.user.id}>\n\nLogs : [**Cliquer ici pour accéder aux logs**](${urlToPaste})`)
               .setColor('2f3136')
               .setTimestamp();
 
             client.channels.cache.get(client.config.logsTicket).send({
               embeds: [embed]
             });
-            client.users.cache.get(chan.topic).send({
-              embeds: [embed2]
-            }).catch(() => {console.log('I cant send it DM')});
-            chan.send('Delete channel.');
+            chan.send('Suppression de l\'appel.');
 
             setTimeout(() => {
               chan.delete();
