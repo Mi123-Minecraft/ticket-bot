@@ -18,7 +18,7 @@ module.exports = {
       chan.edit({
         permissionOverwrites: [{
           id: user,
-          deny: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+          null: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
         },
         {
           id: interaction.guild.roles.everyone,
