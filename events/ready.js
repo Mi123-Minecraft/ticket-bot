@@ -8,13 +8,13 @@ module.exports = {
     function sendTicketMSG() {
       const embed = new client.discord.MessageEmbed()
         .setColor('ff0000')
-        .setAuthor('Ticket create', client.user.avatarURL())
+        .setAuthor('Appeler un département', client.user.avatarURL())
         .setDescription('Contacter un département\n\nVous pouvez contacter les différents départements de la DGRG. Pour ouvrir un ticket, cliquez sur le bouton ci-dessous.')
         .setFooter(client.config.footerText, client.user.avatarURL())
       const row = new client.discord.MessageActionRow()
         .addComponents(
           new client.discord.MessageButton()
-          .setCustomId('open-ticket')
+          .setCustomId('open-appel')
           .setLabel('Appeler un département')
           .setEmoji('🎫')
           .setStyle('PRIMARY'),
