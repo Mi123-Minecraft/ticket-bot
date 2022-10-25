@@ -46,29 +46,29 @@ module.exports = {
           .addComponents(
             new client.discord.MessageSelectMenu()
             .setCustomId('category')
-            .setPlaceholder('choose a reason why you open a ticket')
+            .setPlaceholder('Choississez le département')
             .addOptions([{
-                label: 'Apply',
+                label: 'Ethique',
                 value: 'Apply',
                 emoji: { name: '📑' }
               },
               {
-                label: 'Support',
+                label: 'Justice Interne',
                 value: 'Support',
                 emoji: { name: '❓' }
               },
               {
-                label: 'Complaint',
+                label: 'Renseignements',
                 value: 'Complaint',
                 emoji: { name: '😡' }
               },
               {
-                label: 'Hosting',
+                label: 'Sécurité Interne',
                 value: 'Hosting',
                 emoji: { name: '📌' }
               },
               {
-                label: 'Partnership',
+                label: 'Affaires Externes',
                 value: 'Partnership',
                 emoji: { name: '🥇' }
               },
