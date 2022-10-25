@@ -5,10 +5,10 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('add')
-    .setDescription('Ajouter un utilisateur.')
+    .setDescription('Ajouter un utilisateur à un appel.')
     .addUserOption(option =>
       option.setName('target')
-      .setDescription('Ajouer un utilisateur.')
+      .setDescription('Ajouter un utilisateur à un appel.')
       .setRequired(true)),
   async execute(interaction, client) {
     const chan = client.channels.cache.get(interaction.channelId);
@@ -31,12 +31,12 @@ module.exports = {
       ],
       }).then(async () => {
         interaction.reply({
-          content: `<@${user.id}> a été ajouté !`
+          content: `<@${user.id}> a été ajouté à cet appel !`
         });
       });
     } else {
       interaction.reply({
-        content: 'Erreur : Vous n\'avez pas de ticket !',
+        content: 'Erreur : Vous n\'êtes pas dans un appel !',
         ephemeral: true
       });
     };
