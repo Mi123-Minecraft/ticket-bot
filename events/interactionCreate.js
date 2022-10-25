@@ -147,7 +147,7 @@ module.exports = {
 
         collector.on('end', collected => {
           if (collected.size < 1) {
-            c.send(`There was no reason, the ticket will be closed.`).then(() => {
+            c.send(`Aucun département n'a été renseigné. Fin de l'appel..`).then(() => {
               setTimeout(() => {
                 if (c.deletable) {
                   c.delete();
