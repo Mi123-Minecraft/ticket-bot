@@ -7,7 +7,7 @@ module.exports = {
     if (interaction.customId == "open-ticket") {
       if (client.guilds.cache.get(interaction.guildId).channels.cache.find(c => c.topic == interaction.user.id)) {
         return interaction.reply({
-          content: 'you have already a Ticket created!',
+          content: 'Vous avez déjà un appel en cours !',
           ephemeral: true
         });
       };
