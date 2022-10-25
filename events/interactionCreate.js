@@ -37,9 +37,9 @@ module.exports = {
 
         const embed = new client.discord.MessageEmbed()
           .setColor('ff9600')
-          .setAuthor('Reason', ' ')
-          .setDescription('choose a reason why you open a ticket')
-          .setFooter('Ticket System', ' ')
+          .setAuthor('Département', ' ')
+          .setDescription('Choississez le département.')
+          .setFooter('Direction Générale des Renseignements Généraux', ' ')
           .setTimestamp();
 
         const row = new client.discord.MessageActionRow()
