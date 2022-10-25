@@ -92,9 +92,9 @@ module.exports = {
               msg.delete().then(async () => {
                 const embed = new client.discord.MessageEmbed()
                   .setColor('ff9600')
-                  .setAuthor('Ticket', ' ')
-                  .setDescription(`<@!${interaction.user.id}> has create a **Ticket** with the reason・ ${i.values[0]}`)
-                  .setFooter('Ticket System', ' ')
+                  .setAuthor('Appel', ' ')
+                  .setDescription(`<@!${interaction.user.id}> a créé un **appel** au département : ${i.values[0]}`)
+                  .setFooter('Direction Générale des Renseignements Généraux', ' ')
                   .setTimestamp();
 
                 const row = new client.discord.MessageActionRow()
