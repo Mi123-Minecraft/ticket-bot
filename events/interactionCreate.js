@@ -176,7 +176,7 @@ module.exports = {
         );
 
       const verif = await interaction.reply({
-        content: 'Are you sure you want to close the ticket?',
+        content: 'Êtes-vous sûr de vouloir clôturer cet appel ?',
         components: [row]
       });
 
@@ -188,7 +188,7 @@ module.exports = {
       collector.on('collect', i => {
         if (i.customId == 'confirm-close') {
           interaction.editReply({
-            content: `The ticket has been closed by <@!${interaction.user.id}>`,
+            content: `L'appel a été clotûré par <@!${interaction.user.id}>`,
             components: []
           });
 
