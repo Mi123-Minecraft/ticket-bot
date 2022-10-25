@@ -265,7 +265,7 @@ module.exports = {
         let a = messages.filter(m => m.author.bot !== true).map(m =>
           `${new Date(m.createdTimestamp).toLocaleString('fr-FR')} - ${m.author.username}#${m.author.discriminator}: ${m.attachments.size > 0 ? m.attachments.first().proxyURL : m.content}`
         ).reverse().join('\n');
-        if (a.length < 1) a = "It was not written in the ticket"
+        if (a.length < 1) a = "Cet appel était vide."
         hastebin.createPaste(a, {
             contentType: 'text/plain',
             server: 'https://hastebin.com'
