@@ -236,7 +236,7 @@ module.exports = {
         };
         if (i.customId == 'no') {
           interaction.editReply({
-            content: 'Close ticket cancelled!',
+            content: 'Annulation de la fin d\'appel !',
             components: []
           });
           collector.stop();
@@ -246,7 +246,7 @@ module.exports = {
       collector.on('end', (i) => {
         if (i.size < 1) {
           interaction.editReply({
-            content: 'Ticket closure cancelled!',
+            content: 'Annulation de la fin d\'appel !',
             components: []
           });
         };
@@ -258,7 +258,7 @@ module.exports = {
       const chan = guild.channels.cache.get(interaction.channelId);
 
       interaction.reply({
-        content: 'ticket saving...'
+        content: 'Sauvegarde...'
       });
 
       chan.messages.fetch().then(async (messages) => {
