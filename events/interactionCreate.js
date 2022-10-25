@@ -31,7 +31,7 @@ module.exports = {
         type: 'text',
       }).then(async c => {
         interaction.reply({
-          content: `Ticket has ben created! <#${c.id}>`,
+          content: `Votre appel a été lancé ! <#${c.id}>`,
           ephemeral: true
         });
 
