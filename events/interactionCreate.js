@@ -101,7 +101,7 @@ module.exports = {
                   .addComponents(
                     new client.discord.MessageButton()
                     .setCustomId('close-ticket')
-                    .setLabel('Mettre fin à l\'appel')
+                    .setLabel("Mettre fin à l'appel")
                     .setEmoji('899745362137477181')
                     .setStyle('DANGER'),
                   );
@@ -167,16 +167,16 @@ module.exports = {
         .addComponents(
           new client.discord.MessageButton()
           .setCustomId('confirm-close')
-          .setLabel('Mettre fin à l\'appel')
+          .setLabel("Mettre fin à l'appel")
           .setStyle('DANGER'),
           new client.discord.MessageButton()
           .setCustomId('no')
-          .setLabel('Annuler la fin d\'appel')
+          .setLabel("Annuler la fin d'appel")
           .setStyle('SECONDARY'),
         );
 
       const verif = await interaction.reply({
-        content: 'Êtes-vous sûr de vouloir mettre fin à l\'appel ?',
+        content: "Êtes-vous sûr de vouloir mettre fin à l'appel ?",
         components: [row]
       });
 
@@ -188,7 +188,7 @@ module.exports = {
       collector.on('collect', i => {
         if (i.customId == 'confirm-close') {
           interaction.editReply({
-            content: `L\'appel a été clotûré par <@!${interaction.user.id}>`,
+            content: "L'appel a été clotûré par <@!${interaction.user.id}>",
             components: []
           });
 
@@ -221,7 +221,7 @@ module.exports = {
                 .addComponents(
                   new client.discord.MessageButton()
                   .setCustomId('delete-ticket')
-                  .setLabel('Supprimer l\appel')
+                  .setLabel("Supprimer l'appel")
                   .setEmoji('🗑️')
                   .setStyle('DANGER'),
                 );
@@ -236,7 +236,7 @@ module.exports = {
         };
         if (i.customId == 'no') {
           interaction.editReply({
-            content: 'Fermeture de l\'appel annulée !',
+            content: "Fermeture de l'appel annulée !",
             components: []
           });
           collector.stop();
@@ -246,7 +246,7 @@ module.exports = {
       collector.on('end', (i) => {
         if (i.size < 1) {
           interaction.editReply({
-            content: 'Fermeture de l\'appel annulée !',
+            content: "Fermeture de l'appel annulée !",
             components: []
           });
         };
