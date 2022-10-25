@@ -7,12 +7,12 @@ module.exports = {
     if (interaction.customId == "open-ticket") {
       if (client.guilds.cache.get(interaction.guildId).channels.cache.find(c => c.topic == interaction.user.id)) {
         return interaction.reply({
-          content: 'Vous avez déjà démarré un appel.',
+          content: 'you have already a Ticket created!',
           ephemeral: true
         });
       };
 
-      interaction.guild.channels.create(`appel-${interaction.user.username}`, {
+      interaction.guild.channels.create(`ticket-${interaction.user.username}`, {
         parent: client.config.parentOpened,
         topic: interaction.user.id,
         permissionOverwrites: [{
@@ -31,46 +31,46 @@ module.exports = {
         type: 'text',
       }).then(async c => {
         interaction.reply({
-          content: `L'appel a été démarré ! <#${c.id}>`,
+          content: `Ticket has ben created! <#${c.id}>`,
           ephemeral: true
         });
 
         const embed = new client.discord.MessageEmbed()
           .setColor('ff9600')
-          .setAuthor('Département', ' ')
-          .setDescription('Choisissez le département que vous souhaitez contacter.')
-          .setFooter('Direction Générale des Renseignements Généraux', ' ')
+          .setAuthor('Reason', ' ')
+          .setDescription('choose a reason why you open a ticket')
+          .setFooter('Ticket System', ' ')
           .setTimestamp();
 
         const row = new client.discord.MessageActionRow()
           .addComponents(
             new client.discord.MessageSelectMenu()
             .setCustomId('category')
-            .setPlaceholder('Liste des départements')
+            .setPlaceholder('choose a reason why you open a ticket')
             .addOptions([{
-                label: 'Ethique',
-                value: 'Ethique',
-                emoji: { name: '💎​' }
+                label: 'Apply',
+                value: 'Apply',
+                emoji: { name: '📑' }
               },
               {
-                label: 'Justice Interne',
-                value: 'Justice Interne',
-                emoji: { name: '⚖️​' }
+                label: 'Support',
+                value: 'Support',
+                emoji: { name: '❓' }
               },
               {
-                label: 'Renseignements',
-                value: 'Renseignements',
-                emoji: { name: '👓​' }
+                label: 'Complaint',
+                value: 'Complaint',
+                emoji: { name: '😡' }
               },
               {
-                label: 'Sécurité Interne',
-                value: 'Sécurité Interne',
-                emoji: { name: '🔰​' }
+                label: 'Hosting',
+                value: 'Hosting',
+                emoji: { name: '📌' }
               },
               {
-                label: 'Affaires Externes',
-                value: 'Affaires Externes',
-                emoji: { name: '💼' }
+                label: 'Partnership',
+                value: 'Partnership',
+                emoji: { name: '🥇' }
               },
             ]),
           );
@@ -92,16 +92,16 @@ module.exports = {
               msg.delete().then(async () => {
                 const embed = new client.discord.MessageEmbed()
                   .setColor('ff9600')
-                  .setAuthor('Appel', ' ')
-                  .setDescription(`<@!${interaction.user.id}> has create a **Appel** with the reason・ ${i.values[0]}`)
-                  .setFooter('Direction Générale des Renseignements Généraux', ' ')
+                  .setAuthor('Ticket', ' ')
+                  .setDescription(`<@!${interaction.user.id}> has create a **Ticket** with the reason・ ${i.values[0]}`)
+                  .setFooter('Ticket System', ' ')
                   .setTimestamp();
 
                 const row = new client.discord.MessageActionRow()
                   .addComponents(
                     new client.discord.MessageButton()
-                    .setCustomId('close-appel')
-                    .setLabel("Mettre fin à l'appel")
+                    .setCustomId('close-ticket')
+                    .setLabel('close ticket')
                     .setEmoji('899745362137477181')
                     .setStyle('DANGER'),
                   );
@@ -117,27 +117,27 @@ module.exports = {
                 });
               });
             };
-            if (i.values[0] == 'Ethique') {
+            if (i.values[0] == 'Apply') {
               c.edit({
                 parent: client.config.parentApply
               });
             };
-            if (i.values[0] == 'Justice Interne') {
+            if (i.values[0] == 'Support') {
               c.edit({
                 parent: client.config.parentSupport
               });
             };
-            if (i.values[0] == 'Renseignements') {
+            if (i.values[0] == 'Complaint') {
               c.edit({
                 parent: client.config.parentComplaint
               });
             };
-            if (i.values[0] == 'Sécurité Interne') {
+            if (i.values[0] == 'Hosting') {
               c.edit({
                 parent: client.config.parentHosting
               });
             };
-            if (i.values[0] == 'Affaires Externes') {
+            if (i.values[0] == 'Partnership') {
               c.edit({
                 parent: client.config.parentPartnership
               });
@@ -147,7 +147,7 @@ module.exports = {
 
         collector.on('end', collected => {
           if (collected.size < 1) {
-            c.send(`Aucun département n'a été contacté. Fermeture...`).then(() => {
+            c.send(`There was no reason, the ticket will be closed.`).then(() => {
               setTimeout(() => {
                 if (c.deletable) {
                   c.delete();
@@ -159,7 +159,7 @@ module.exports = {
       });
     };
 
-    if (interaction.customId == "close-appel") {
+    if (interaction.customId == "close-ticket") {
       const guild = client.guilds.cache.get(interaction.guildId);
       const chan = guild.channels.cache.get(interaction.channelId);
 
@@ -167,16 +167,16 @@ module.exports = {
         .addComponents(
           new client.discord.MessageButton()
           .setCustomId('confirm-close')
-          .setLabel("Mettre fin à l'appel")
+          .setLabel('Ticket close')
           .setStyle('DANGER'),
           new client.discord.MessageButton()
           .setCustomId('no')
-          .setLabel("Annuler la fin d'appel")
+          .setLabel('close cancel')
           .setStyle('SECONDARY'),
         );
 
       const verif = await interaction.reply({
-        content: "Êtes-vous sûr de vouloir mettre fin à l'appel ?",
+        content: 'Are you sure you want to close the ticket?',
         components: [row]
       });
 
@@ -188,12 +188,12 @@ module.exports = {
       collector.on('collect', i => {
         if (i.customId == 'confirm-close') {
           interaction.editReply({
-            content: "L'appel a été clotûré par <@!${interaction.user.id}>",
+            content: `The ticket has been closed by <@!${interaction.user.id}>`,
             components: []
           });
 
           chan.edit({
-              name: `terminé-${chan.name}`,
+              name: `closed-${chan.name}`,
               permissionOverwrites: [
                 {
                   id: client.users.cache.get(chan.topic),
@@ -212,16 +212,16 @@ module.exports = {
             .then(async () => {
               const embed = new client.discord.MessageEmbed()
                 .setColor('ff9600')
-                .setAuthor('Appel', ' ')
-                .setDescription('```Sauvegarde...```')
-                .setFooter('Direction Générale des Renseignements Généraux', ' ')
+                .setAuthor('Ticket', ' ')
+                .setDescription('```Ticket saving```')
+                .setFooter('Ticket System', ' ')
                 .setTimestamp();
 
               const row = new client.discord.MessageActionRow()
                 .addComponents(
                   new client.discord.MessageButton()
-                  .setCustomId('delete-appel')
-                  .setLabel("Supprimer l'appel")
+                  .setCustomId('delete-ticket')
+                  .setLabel('Ticket delete')
                   .setEmoji('🗑️')
                   .setStyle('DANGER'),
                 );
@@ -236,7 +236,7 @@ module.exports = {
         };
         if (i.customId == 'no') {
           interaction.editReply({
-            content: "Fermeture de l'appel annulée !",
+            content: 'Close ticket cancelled!',
             components: []
           });
           collector.stop();
@@ -246,40 +246,40 @@ module.exports = {
       collector.on('end', (i) => {
         if (i.size < 1) {
           interaction.editReply({
-            content: "Fermeture de l'appel annulée !",
+            content: 'Ticket closure cancelled!',
             components: []
           });
         };
       });
     };
 
-    if (interaction.customId == "delete-appel") {
+    if (interaction.customId == "delete-ticket") {
       const guild = client.guilds.cache.get(interaction.guildId);
       const chan = guild.channels.cache.get(interaction.channelId);
 
       interaction.reply({
-        content: 'Sauvegarde...'
+        content: 'ticket saving...'
       });
 
       chan.messages.fetch().then(async (messages) => {
         let a = messages.filter(m => m.author.bot !== true).map(m =>
           `${new Date(m.createdTimestamp).toLocaleString('de-DE')} - ${m.author.username}#${m.author.discriminator}: ${m.attachments.size > 0 ? m.attachments.first().proxyURL : m.content}`
         ).reverse().join('\n');
-        if (a.length < 1) a = "Rien n'a été noté dans l'appel."
+        if (a.length < 1) a = "It was not written in the ticket"
         hastebin.createPaste(a, {
             contentType: 'text/plain',
             server: 'https://hastebin.com'
           }, {})
           .then(function (urlToPaste) {
             const embed = new client.discord.MessageEmbed()
-              .setAuthor('Logs des appels', ' ')
-              .setDescription(`📰 Logs des appels \`${chan.id}\` créé par <@!${chan.topic}> et supprimé par <@!${interaction.user.id}>\n\nLogs : [**Cliquer ici pour voir les logs**](${urlToPaste})`)
+              .setAuthor('Logs Ticket', ' ')
+              .setDescription(`📰 Ticket-Logs \`${chan.id}\` created by <@!${chan.topic}> and deleted by <@!${interaction.user.id}>\n\nLogs: [**Click here to see the logs**](${urlToPaste})`)
               .setColor('2f3136')
               .setTimestamp();
 
             const embed2 = new client.discord.MessageEmbed()
-              .setAuthor('Logs des appels', ' ')
-              .setDescription(`📰 Logs de votre appel \`${chan.id}\`: [**Cliquer ici pour voir les logs**](${urlToPaste})`)
+              .setAuthor('Logs Ticket', ' ')
+              .setDescription(`📰 Logs of your ticket \`${chan.id}\`: [**Click here to see the logsn**](${urlToPaste})`)
               .setColor('2f3136')
               .setTimestamp();
 
@@ -289,7 +289,7 @@ module.exports = {
             client.users.cache.get(chan.topic).send({
               embeds: [embed2]
             }).catch(() => {console.log('I cant send it DM')});
-            chan.send('Supprimer le salon.');
+            chan.send('Delete channel.');
 
             setTimeout(() => {
               chan.delete();

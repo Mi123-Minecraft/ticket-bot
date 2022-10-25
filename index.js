@@ -83,7 +83,7 @@ client.on("ready", () =>{
       status: "dnd",
       game: {
           name: "la maintenance.",
-          type: "Listening"
+          type: "WATCHING",
       }
   });
 });
