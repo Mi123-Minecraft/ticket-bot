@@ -12,7 +12,7 @@ module.exports = {
         });
       };
 
-      interaction.guild.channels.create(`ticket-${interaction.user.username}`, {
+      interaction.guild.channels.create(`appel-${interaction.user.username}`, {
         parent: client.config.parentOpened,
         topic: interaction.user.id,
         permissionOverwrites: [{
@@ -92,15 +92,15 @@ module.exports = {
               msg.delete().then(async () => {
                 const embed = new client.discord.MessageEmbed()
                   .setColor('ff9600')
-                  .setAuthor('Ticket', ' ')
-                  .setDescription(`<@!${interaction.user.id}> has create a **Ticket** with the reason・ ${i.values[0]}`)
-                  .setFooter('Ticket System', ' ')
+                  .setAuthor('Appel', ' ')
+                  .setDescription(`<@!${interaction.user.id}> has create a **Appel** with the reason・ ${i.values[0]}`)
+                  .setFooter('Direction Générale des Renseignements Généraux', ' ')
                   .setTimestamp();
 
                 const row = new client.discord.MessageActionRow()
                   .addComponents(
                     new client.discord.MessageButton()
-                    .setCustomId('close-ticket')
+                    .setCustomId('close-appel')
                     .setLabel("Mettre fin à l'appel")
                     .setEmoji('899745362137477181')
                     .setStyle('DANGER'),
@@ -159,7 +159,7 @@ module.exports = {
       });
     };
 
-    if (interaction.customId == "close-ticket") {
+    if (interaction.customId == "close-appel") {
       const guild = client.guilds.cache.get(interaction.guildId);
       const chan = guild.channels.cache.get(interaction.channelId);
 
@@ -220,7 +220,7 @@ module.exports = {
               const row = new client.discord.MessageActionRow()
                 .addComponents(
                   new client.discord.MessageButton()
-                  .setCustomId('delete-ticket')
+                  .setCustomId('delete-appel')
                   .setLabel("Supprimer l'appel")
                   .setEmoji('🗑️')
                   .setStyle('DANGER'),
@@ -253,7 +253,7 @@ module.exports = {
       });
     };
 
-    if (interaction.customId == "delete-ticket") {
+    if (interaction.customId == "delete-appel") {
       const guild = client.guilds.cache.get(interaction.guildId);
       const chan = guild.channels.cache.get(interaction.channelId);
 
